@@ -178,11 +178,6 @@
         
         <form id="subscribeForm">
             <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required placeholder="Your name">
-            </div>
-            
-            <div class="form-group">
                 <label for="email">Email Address</label>
                 <input type="email" id="email" name="email" required placeholder="you@example.com">
             </div>
@@ -199,7 +194,7 @@
 
     <script>
         // REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZbuI6_1qXiemlDARMrtFnNb_Uc17vsoNcnTidKEN5e44wyyv-qeBewwT6mcrUE5zh/exec';
+        const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
         
         const form = document.getElementById('subscribeForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -208,11 +203,10 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             
-            if (!name || !email) {
-                showMessage('Please fill in all fields', 'error');
+            if (!email) {
+                showMessage('Please enter your email address', 'error');
                 return;
             }
             
@@ -223,24 +217,20 @@
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
                         action: 'subscribe',
-                        name: name,
                         email: email
                     })
                 });
                 
-                const data = await response.json();
+                // With no-cors, we can't read the response, so assume success
+                showMessage('Success! Please check your email to confirm your subscription.', 'success');
+                form.reset();
                 
-                if (data.success) {
-                    showMessage('Success! Please check your email to confirm your subscription.', 'success');
-                    form.reset();
-                } else {
-                    showMessage(data.message || 'Something went wrong. Please try again.', 'error');
-                }
             } catch (error) {
                 showMessage('Connection error. Please try again.', 'error');
             } finally {
