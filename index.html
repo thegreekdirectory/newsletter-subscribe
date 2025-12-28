@@ -194,7 +194,7 @@
 
     <script>
         // REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbam1r2bUx2TnO5aF2fTd4NCvKHhxAY3EpVa_g6TSLoLD8Ca7PZyQRhLsSyqbcObd-/exec';
+        const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
         
         const form = document.getElementById('subscribeForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -228,7 +228,7 @@
                 });
                 
                 // With no-cors, we can't read the response, so assume success
-                showMessage('Success! Check your email for a welcome message.', 'success');
+                showMessage('🎉 You\'re subscribed! Check your email for a welcome message.', 'success');
                 form.reset();
                 
             } catch (error) {
